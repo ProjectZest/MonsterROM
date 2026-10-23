@@ -5,7 +5,7 @@ on:
   pull_request:
   push:
     branches:
-      - 'sixteen'
+      - 'seventeen'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -46,10 +46,11 @@ jobs:
         run: |
           sudo apt update
           DEBIAN_FRONTEND=noninteractive sudo apt install -yq \
-            7zip attr ccache clang ffmpeg \
-            libbrotli-dev libgtest-dev libprotobuf-dev libunwind-dev libpcre2-dev \
-            libzstd-dev linux-modules-extra-$(uname -r) lld protobuf-compiler webp
-          sudo modprobe erofs f2fs
+            attr ccache clang ffmpeg libbrotli-dev libbz2-dev \
+            libgtest-dev libprotobuf-dev libunwind-dev libpcre2-dev \
+            libzstd-dev linux-modules-extra-$(uname -r) lld protobuf-compiler webp \
+            build-essential g++-aarch64-linux-gnu gcc-aarch64-linux-gnu \
+            python-is-python3 python3 wget
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           echo -n "${{ secrets.PLATFORM_KEY_PK8 }}" | base64 --decode > security/unica_platform.pk8
